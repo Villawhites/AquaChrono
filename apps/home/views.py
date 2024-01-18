@@ -11,70 +11,48 @@ from django.urls import reverse
 from django_filters.views import FilterView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django_tables2.views import SingleTableMixin
+from django.views import View
+from django.shortcuts import render
+from django.template.loader import get_template
 
 from apps.student.models import Student
 
-@login_required(login_url="/login/")
-def index(request):
-    context = {'segment': 'index'}
-    context['data_student'] = Student.objects.all()
+class ListHomes(View):
+    template_name = 'home/index.html'
 
-    html_template = loader.get_template('home/index.html')
-    return HttpResponse(html_template.render(context, request))
+    def get_context_data(self, **kwargs):
+        qs = Student.objects.all()
+        context = {'data_student': qs}
+        return context
 
+    def get(self, request, *args, **kwargs):
+        context = self.get_context_data()
+        return render(request, self.template_name, context)
 
-@login_required(login_url="/login/")
-def pages(request):
-    context = {}
-    # All resource paths end in .html.
-    # Pick out the html file name from the url. And load that template.
-    try:
+class PagesView(View):
+    template_404 = 'home/page-404.html'
+    template_500 = 'home/page-500.html'
 
+    def get_template_name(self, request):
         load_template = request.path.split('/')[-1]
+        return 'home/' + load_template
 
-        if load_template == 'admin':
-            return HttpResponseRedirect(reverse('admin:index'))
-        context['segment'] = load_template
+    def get(self, request, *args, **kwargs):
+        context = {}
+        try:
+            if request.path.split('/')[-1] == 'admin':
+                return HttpResponseRedirect(reverse('admin:index'))
 
-        html_template = loader.get_template('home/' + load_template)
-        return HttpResponse(html_template.render(context, request))
+            context['segment'] = self.get_template_name(request)
+            html_template = loader.get_template(self.get_template_name(request))
+            return HttpResponse(html_template.render(context, request))
 
-    except template.TemplateDoesNotExist:
+        except template.TemplateDoesNotExist:
+            html_template = loader.get_template(self.template_404)
+            return HttpResponse(html_template.render(context, request))
 
-        html_template = loader.get_template('home/page-404.html')
-        return HttpResponse(html_template.render(context, request))
-
-    except:
-        html_template = loader.get_template('home/page-500.html')
-        return HttpResponse(html_template.render(context, request))
-
-# Table list Alumnos
-# class StudentView(LoginRequiredMixin,SingleTableMixin,FilterView):
-
-#     model = Student
-#     table_class = StudentTable
-#     template_name = 'home/index.html'
-#     # filterset_class= GenericFilter
-#     # filter_fields = ['contract__employee__code', 'contract__employee__rut', 'contract__employee__name','contract__employee__last_name']
-#     # variable_session_tab = 'template_tab_severance_pay'
-#     # table_pagination = {
-#     #     "per_page": 20
-#     # }
-#     # fields_search = [
-#     #     'contract__employee__code',
-#     #     'contract__employee__rut',
-#     #     'contract__employee__name',
-#     #     'contract__employee__last_name'
-#     #     ]
-
-#     def get_context_data(self, **kwargs):
-#         context = super().get_context_data(**kwargs)
-#         return context
-
-#     def get_queryset(self):
-#         self.filterset_class.filter_fields = self.table_class.Meta.fields
-
-#         queryset = self.model.objects.all()
+        except Exception:
+            html_template = loader.get_template(self.template_500)
+            return HttpResponse(html_template.render(context, request))
 
 
-#         return queryset

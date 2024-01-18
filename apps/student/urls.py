@@ -3,10 +3,10 @@
 Copyright (c) 2019 - present AppSeed.us
 """
 
-from django.urls import path
-from .views import ListHome
+from django.urls import path, re_path
+from apps.student import views
+
 
 urlpatterns = [
-    path('', ListHome, name='index'),
-    # Otros patrones de URL si los tienes
+
 ]
