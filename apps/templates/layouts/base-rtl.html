@@ -25,7 +25,7 @@
   <link rel="canonical" href="https://appseed.us/admin-dashboards/django-dashboard-material">
 
   <title>
-    AquaChrono 1.0 - {% block title %}{% endblock %} | AppSeed
+    AquaChrono 1.0{% block title %}{% endblock %}
   </title>
 
   <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
@@ -41,6 +41,9 @@
 
   <!-- CSS Just for demo purpose, don't include it in your project -->
   <link href="/static/assets/demo/demo.css" rel="stylesheet" />
+
+   <!-- css datatable -->
+   <link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/dataTables.bootstrap4.min.css">
 
   <!-- Specific Page CSS goes HERE  -->
   {% block stylesheets %}{% endblock stylesheets %}
@@ -69,8 +72,8 @@
 
     </div>
   </div>
+  {% comment %}  {% include 'includes/fixed-plugin.html' %} {% endcomment %}
 
-  {% include 'includes/fixed-plugin.html' %}
 
   {% include 'includes/scripts.html' %}
 

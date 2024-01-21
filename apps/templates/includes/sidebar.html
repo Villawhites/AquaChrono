@@ -1,8 +1,9 @@
-    <div class="sidebar" data-color="purple" data-background-color="white" data-image="/static/assets/img/sidebar-1.jpg">
+{% load crispy_forms_tags %}
+   <div class="sidebar" data-color="purple" data-background-color="white" data-image="/static/assets/img/sidebar-1.jpg">
       <div class="logo">
-        <a target="_blank" rel="noopener noreferrer" 
-           href="https://appseed.us/admin-dashboards/django-dashboard-material" class="simple-text logo-normal">
-          Django Material
+        <a rel="noopener noreferrer"
+           href="/" class="simple-text logo-normal">
+          AQUA CHRONO <span class="material-icons" style="color: blueviolet;">pool</span>
         </a>
       </div>
       <div class="sidebar-wrapper">
@@ -12,14 +13,20 @@
           <li class="nav-item {% if 'index' in segment %} active {% endif %}">
             <a class="nav-link" href="/">
               <i class="material-icons">dashboard</i>
-              <p>Dashboard</p>
+              <p>Inicio</p>
             </a>
           </li>
-          <li class="nav-item {% if 'page-user' in segment %} active {% endif %}">
-            <a class="nav-link" href="/page-user.html">
+          <li class="nav-item dropdown {% if 'page-user' in segment %} active {% endif %}">
+            <a class="nav-link" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               <i class="material-icons">person</i>
-              <p>User Profile</p>
+              <p>Alumnos</p>
             </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <!-- Aquí puedes agregar enlaces para las opciones del menú desplegable -->
+              <a class="dropdown-item" href="{% url 'student:create_student' %}">Crear</a>
+              <a class="dropdown-item" href="{% url 'student:list_students' %}">Listado</a>
+              <!-- Puedes agregar más opciones según tus necesidades -->
+            </div>
           </li>
           <li class="nav-item {% if 'ui-tables' in segment %} active {% endif %}">
             <a class="nav-link" href="/ui-tables.html">
@@ -51,7 +58,7 @@
               <p>Notifications</p>
             </a>
           </li>
-          
+
           <li class="nav-item ">
             <a class="nav-link" href="/page-rtl-support.html">
               <i class="material-icons">language</i>
@@ -67,8 +74,8 @@
           </li>
 
           <li class="nav-item active-pro ">
-            <a class="nav-link" 
-               target="_blank" rel="noopener noreferrer"  
+            <a class="nav-link"
+               target="_blank" rel="noopener noreferrer"
                href="https://appseed.us/admin-dashboards/django-dashboard-material-pro">
               <i class="material-icons">unarchive</i>
               <p>PRO Version</p>
@@ -78,13 +85,13 @@
         {% else %}
 
           <li class="nav-item active">
-            <a class="nav-link" 
-               target="_blank" rel="noopener noreferrer"  
+            <a class="nav-link"
+               target="_blank" rel="noopener noreferrer"
                href="https://appseed.us/admin-dashboards/django-dashboard-material-pro">
               <i class="material-icons">unarchive</i>
               <p>PRO Version</p>
             </a>
-          </li>          
+          </li>
 
         {% endif %}
         </ul>

@@ -14,7 +14,6 @@ class StudentTable(tables.Table):
         fields = [
             'id',
             'name',
-            'time',
-            'competitiontypes',
+            'rut',
         ]
 

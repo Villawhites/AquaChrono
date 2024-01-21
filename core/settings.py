@@ -19,9 +19,10 @@ DEBUG = config('DEBUG', default=True, cast=bool)
 
 # load production server from .env
 #ALLOWED_HOSTS = ['localhost', '127.0.0.1', config('SERVER', default='127.0.0.1')]
-
+ALLOWED_HOSTS = ["*"]
+CSRF_TRUSTED_ORIGINS = ['https://ee68-200-104-216-49.ngrok-free.app']#***COMENTAR ESTO, SOLO UTILIZAR AL LEVANTAR NGROK-CAMBIAR LINK SI ES NECESARIO
 # Application definition
-
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -30,6 +31,10 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django_tables2',
+    'crispy_forms',
+    'bootstrap4',
+    'crispy_bootstrap4',
+    'apps',
     'apps.home',
     'apps.student',
     'apps.representative',
@@ -57,7 +62,7 @@ LOGIN_REDIRECT_URL = "home"  # Route defined in home/urls.py
 LOGOUT_REDIRECT_URL = "home"  # Route defined in home/urls.py
 TEMPLATE_DIR = os.path.join(CORE_DIR, "apps/templates")  # ROOT dir for templates
 
-DJANGO_TABLES2_TEMPLATE = "tables/table_.html"
+DJANGO_TABLES2_TEMPLATE = "apps/templates/tables/table_.html"
 
 TEMPLATES = [
     {
@@ -75,7 +80,7 @@ TEMPLATES = [
     },
 ]
 
-ALLOWED_HOSTS = ["*"]
+
 
 WSGI_APPLICATION = 'core.wsgi.application'
 
