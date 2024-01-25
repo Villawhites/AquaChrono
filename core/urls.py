@@ -9,5 +9,9 @@ from django.urls import path, include  # add this
 urlpatterns = [
     path('admin/', admin.site.urls),          # Django admin route
     path("", include("apps.authentication.urls")), # Auth routes - login / register
-    path("", include("apps.home.urls"))             # UI Kits Html files
+    path("", include("apps.home.urls")),            # UI Kits Html files
+    path('student/', include(("apps.student.urls",'student'), namespace='student')),
+    path("", include("apps.representative.urls")),
+    path("", include("apps.trainer.urls")),
+    path("", include("apps.competition.urls")),
 ]

@@ -1,0 +1,58 @@
+{% extends "layouts/base.html" %}
+
+{% load crispy_forms_tags %}
+{% load i18n %}
+{% block extra_head %}
+    {{ form.media }}
+{% endblock %}
+
+
+{% block content %}
+        <style>
+            .messages {
+                position: fixed;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                width: 300px; /* Ajusta el ancho según tus necesidades */
+                text-align: center;
+                z-index: 1000; /* Ajusta según tus necesidades */
+            }
+
+            .alert {
+                font-size: 14px; /* Ajusta el tamaño del texto según tus necesidades */
+                margin-bottom: 0; /* Elimina el margen inferior para que sea más compacto */
+            }
+        </style>
+
+        <div class="card shadow align-items-center">
+            <div class="card-header" style="width: 100%;">
+                <h2>Alumnos</h2>
+            </div>
+
+            <div class="card-body w-100" >
+                {% csrf_token %}
+                {% crispy form %}
+
+                {% if messages %}
+                    <div class="messages">
+                        {% for message in messages %}
+                            <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+                                {{ message }}
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+
+{% endblock content %}
+
+<!-- Specific JS goes HERE -->
+{% block javascripts %}
+
+    {{ form.media }}
+{% endblock javascripts %}
