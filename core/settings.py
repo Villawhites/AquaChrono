@@ -20,7 +20,7 @@ DEBUG = config('DEBUG', default=True, cast=bool)
 # load production server from .env
 #ALLOWED_HOSTS = ['localhost', '127.0.0.1', config('SERVER', default='127.0.0.1')]
 ALLOWED_HOSTS = ["*"]
-CSRF_TRUSTED_ORIGINS = ['https://ee68-200-104-216-49.ngrok-free.app']#***COMENTAR ESTO, SOLO UTILIZAR AL LEVANTAR NGROK-CAMBIAR LINK SI ES NECESARIO
+#CSRF_TRUSTED_ORIGINS = ['https://ee68-200-104-216-49.ngrok-free.app']#***COMENTAR ESTO, SOLO UTILIZAR AL LEVANTAR NGROK-CAMBIAR LINK SI ES NECESARIO
 # Application definition
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 INSTALLED_APPS = [

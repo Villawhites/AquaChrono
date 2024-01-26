@@ -176,10 +176,18 @@
                             {{ students.name }}
                         </td>
                         <td class="text-left">
-                          {{ students.get_competitiontypes_display }}
+                          {% if students.competitiontypes %}
+                            {{ students.get_competitiontypes_display }}
+                          {% else %}
+                            -----
+                          {% endif %}
                         </td>
                         <td class="text-left">
-                          {{ students.time }}
+                          {% if students.time %}
+                            {{ students.time }}
+                          {% else %}
+                            -----
+                          {% endif %}
                         </td>
                   </tr>
                   {%endfor%}

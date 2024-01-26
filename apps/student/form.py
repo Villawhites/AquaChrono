@@ -24,6 +24,7 @@ class CreateStundentForm(forms.ModelForm):
 
         fields = [
             'rut',
+            'last_name',
             'name',
             'birth_date'
         ]
@@ -39,6 +40,13 @@ class CreateStundentForm(forms.ModelForm):
                 }
             ),
             'name': forms.TextInput(
+                attrs={
+                    'class': 'form-control',
+                    'type': 'text',
+                    'required': 'required',
+                }
+            ),
+            'last_name': forms.TextInput(
                 attrs={
                     'class': 'form-control',
                     'type': 'text',
@@ -65,8 +73,9 @@ class CreateStundentForm(forms.ModelForm):
             Div(
                 Row(
                     Column('rut', css_class='col-md-2'),
-                    Column('name', css_class='col-md-5'),
-                    Column('birth_date',css_class='col-md-4'),
+                    Column('name', css_class='col-md-3'),
+                    Column('last_name', css_class='col-md-3'),
+                    Column('birth_date',css_class='col-md-3'),
                     Hidden('student_form', '1'),#bank_movement
                     css_class="justify-content-md-center"
                 ),
@@ -92,9 +101,13 @@ class CreateStundentForm(forms.ModelForm):
         comparative_date=datetime(datetime.now().year,datetime.now().month,15).date()
         str_birth_date=datetime(birth_date.year,birth_date.month,birth_date.day).date()
         name = self.cleaned_data.get('name')
+        last_name = self.cleaned_data.get('last_name')
 
         if not all(char.isalpha() or char.isspace() for char in name):
            self.add_error('name','El nombre solo debe contener letras.')
+
+        if not all(char.isalpha() or char.isspace() for char in last_name):
+           self.add_error('last_name','El Apellido solo debe contener letras.')
 
         #***DESCOMENTAR PARA PRUEBAS, COMENTAR PARA PODER USAR FECHA HOY
         # if comparative_date:
