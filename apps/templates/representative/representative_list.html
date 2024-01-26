@@ -8,27 +8,28 @@
             <div class="row">
                 <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12">
                     <div class="table-responsive">
-                        <table id="datatable-alumnos" class="table">
+                        <table id="datatable-apoderado" class="table">
                             <caption>
-                                Alumnos.
+                                Apodeardos.
                             </caption>
                             <thead>
                                 <tr>
                                     <th class="centered">#</th>
                                     <th class="centered">Nombre</th>
                                     <th class="centered">Apellido</th>
-                                    <th class="centered">Rut</th>
-                                    <th class="centered">Fecha Nacimiento</th>
+                                    <th class="centered">Correo</th>
+                                    <th class="centered">Contacto</th>
+                                    <th class="centered">Apoderado de</th>
                                     <th class="centered">Editar</th>
                                     <th class="centered">Elminar</th>
                                 </tr>
                             </thead>
-                            <tbody id="tableBody_alumnos"></tbody>
+                            <tbody id="tableBody_apoderado"></tbody>
                         </table>
                     </div>
                 </div>
             </div>
         </div>
 <!-- Incluye el archivo JavaScript -->
-<script src="{% static 'assets/js/student/datatable.js' %}"></script>
+<script src="{% static 'assets/js/representative/datatable.js' %}"></script>
 {% endblock content %}

@@ -25,15 +25,10 @@ class StudentCreate(CreateView):
     success_url = reverse_lazy('student:create_student')
 
     def form_valid(self, form):
-        try:
-            obj = form.save(commit=False)
-            obj.save()
-            messages.success(self.request, _('Alumno Creado'))
-            return super().form_valid(form)
-        except IntegrityError:
-            form.add_error("id", 'El codigo ya existe')
-            messages.error(self.request, _('Hubo un problema al crear al alumno.'))
-            return self.form_invalid(form)
+        obj = form.save(commit=False)
+        obj.save()
+        messages.success(self.request, _('Alumno Creado'))
+        return super().form_valid(form)
 
     def form_invalid(self, form):
         return super().form_invalid(form)
@@ -51,6 +46,7 @@ class StudentList(View):
         for student in students:
             student_data = {
                 'name': student['name'],
+                'last_name': student['last_name'],
                 'rut': student['rut'],
                 'birth_date': student['birth_date'],
                 'edit_url': reverse('student:edit_student', kwargs={'pk': student['id']}),
@@ -84,10 +80,10 @@ class StudentEdit(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
     def get_form(self, form_class=None):
         form = super().get_form(form_class)
         instance = self.get_object()
-        instance = self.get_object()
         form.initial = {
             'rut': instance.rut,
             'name': instance.name,
+            'last_name': instance.name,
             'birth_date': instance.birth_date,
         }
         return form

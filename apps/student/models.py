@@ -24,7 +24,13 @@ class Student(models.Model):
         BRAZO5 = ChoiceItem(5, _("Brazo5"))
 
     id = models.AutoField(primary_key=True)
-    name = models.CharField(max_length=50, verbose_name=_("Nombre Alumno"))
+    # current_representative = models.ForeignKey(
+    #     'representative.Representative',
+    #     on_delete=models.CASCADE,
+    #     verbose_name=_("Apoderado")
+    # )
+    name = models.CharField(max_length=50, verbose_name=_("Nombres"))
+    last_name = models.CharField(max_length=50, verbose_name=_("Apellidos"))
     rut = RutField(verbose_name=_("Rut"), unique=True,null=True,blank=False)
     birth_date = models.DateField(
         verbose_name=_("Fecha de Nacimiento"),
